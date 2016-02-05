@@ -1,9 +1,7 @@
-SEIP Multi-Empresa
+SEIP NodeJS
 ========================
 
-Id del usuario de pruebas: *5879*
-
-Privilegios y Roles: *Todos*
+Servidor (script) para *sincronizar y replicar* los cambios realizados en la base maestra hacia el resto de los servidores. 
 
 #### TODO:
 
