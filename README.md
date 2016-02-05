@@ -1,7 +1,7 @@
 SEIP NodeJS
 ========================
 
-Servidor (script) para *sincronizar y replicar* los cambios realizados en la base maestra hacia el resto de los servidores. 
+Servidor (script) para *sincronizar y replicar* los cambios realizados en la base de datos maestra hacia el resto de los servidores. 
 
 #### TODO:
 
@@ -15,8 +15,7 @@ Servidor (script) para *sincronizar y replicar* los cambios realizados en la bas
 #### Enlaces:
 
 - [Dependencias](#dependencias)
-- [Estructura](#estructura)
-- [Archivos Modificados](#archivos-modificados)
+- [Estructura](#estructura-appcnf)
 
 
 Dependencias
@@ -37,10 +36,8 @@ Dependencias
 ```
 
 
-Estructura
+Estructura app.cnf
 -------------------------------------
-
-## ./bin/app.cnf
 
 ```json
 {

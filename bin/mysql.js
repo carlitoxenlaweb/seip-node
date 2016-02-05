@@ -55,10 +55,8 @@ exports.getQuery = function(table, type, data){
             break;
 
         case 'update':
-            var condition = "`" + key + "`=\"" + data[key] + "\"";
-            
-            if(key.indexOf("|") !== -1) {
-                condition = getConditions(key);
+            var condition = (key.indexOf("|") !== -1) ?
+                getConditions(key) : "`" + key + "`=\"" + data[key] + "\"";
 
             for (var i in data)
                 values += "`" + i + "`=" + (data[i] == "\\N" ? "NULL" : "\"" + data[i] + "\"") + ","
@@ -69,10 +67,8 @@ exports.getQuery = function(table, type, data){
             break;
 
         case 'delete':
-            var condition = "`" + key + "`=\"" + data[key] + "\"";
-
-            if(key.indexOf("|") !== -1)
-                condition = getConditions(key);
+            var condition = (key.indexOf("|") !== -1) ?
+                getConditions(key) : "`" + key + "`=\"" + data[key] + "\"";
 
             query = "DELETE FROM `" + table + "` WHERE " + condition;
             break;
