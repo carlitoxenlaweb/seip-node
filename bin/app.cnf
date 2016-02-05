@@ -1,0 +1,116 @@
+{
+	"log_path": "/home/cmartinez/masterlog/",
+	"seip_user": {
+		"primary": "id",
+		"fields": [
+			"id",
+			"parent_id",
+			"fk_complejo",
+			"fk_gerencia",
+			"fk_gerencia_second",
+			"fk_cargo",
+			"username",
+			"username_canonical",
+			"enabled",
+			"salt",
+			"password",
+			"last_login",
+			"locked",
+			"expired",
+			"expires_at",
+			"confirmation_token",
+			"password_requested_at",
+			"roles",
+			"credentials_expired",
+			"credentials_expire_at",
+			"created_at",
+			"updated_at",
+			"firstname",
+			"lastname",
+			"num_personal",
+			"email",
+			"email_canonical",
+			"fk_direction",
+			"date_of_birth",
+			"website",
+			"biography",
+			"gender",
+			"locale",
+			"timezone",
+			"phone",
+			"facebook_uid",
+			"facebook_name",
+			"facebook_data",
+			"twitter_uid",
+			"twitter_name",
+			"twitter_data",
+			"gplus_uid",
+			"gplus_name",
+			"gplus_data",
+			"token",
+			"two_step_code",
+			"configuration_id",
+			"status_worker",
+			"period_id",
+			"identification",
+			"cellphone",
+			"ext",
+			"workStudyCircle_id",
+			"default_conn",
+			"company_id"
+		]
+	},
+	"seip_c_rol": {
+		"primary": "id",
+		"fields": [
+			"id",
+			"fk_user_created_at",
+			"fk_user_updated_at",
+			"name",
+			"roles",
+			"created_at",
+			"updated_at",
+			"description",
+			"level",
+			"enabled",
+			"typeRol"
+		]
+	},
+	"fos_user_user_rol": {
+		"primary": "user_id|rol_id",
+		"fields": [
+			"user_id",
+			"rol_id"
+		]
+	},
+	"seip_connection": {
+		"primary": "id",
+		"fields": [
+			"id",
+			"name"
+		]
+	},
+	"seip_user_connection": {
+		"primary": "user_id|connection_id",
+		"fields": [
+			"user_id",
+			"connection_id"
+		]
+	}
+	"servers": {
+		"pequiven": {
+			"host": "127.0.0.1",
+			"port": 3306,
+			"user": "root",
+			"pass": "123456",
+			"dbname": "seip"
+		},
+		"polinter": {
+			"host": "172.20.124.99",
+			"port": 3306,
+			"user": "root",
+			"pass": "12345",
+			"dbname": "seip"
+		}
+	}
+}
