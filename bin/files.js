@@ -44,18 +44,23 @@ var deleteFile = function(filename) {
         fs.unlinkSync(filename);
         console.log(color.help(filename) + color.debug("->") + color.data("delete"));
     } catch(err) {
-        console.log(color.error(err));
+        exceptionFile(err);
     }
-}
+};
+
+var exceptionFile = function(err) {
+    console.log((err + "fs").match(/cannot be found|no such file/i)?
+                color.data("Evt: file change") : color.error(err));
+};
 
 function runQuerys(){
     for (var server in conf.servers) {
         var folder = conf.log_path + server + '/';
-        fs.readdir(folder, function(err, files){
+        fs.readdirSync(folder, function(err, files){
             for (var i in files) {
                 var filename = folder + files[i],
                     metadata = files[i].split("-");
-
+                    
                 var table = metadata[0],
                     otype = metadata[1].substr(0, metadata[1].indexOf("_"));
 
@@ -65,13 +70,12 @@ function runQuerys(){
                     flatKeys : true,
                     headers  : conf[table].fields
                 }).fromFile(filename, function(err, result){
-                    if(err) console.log(color.error(err));
+                    if(err) exceptionFile(err);
                     else if (result[0] != null) {
                         var rawQuery = database.getQuery(table, otype, result[0]);
-
                         database.getConnection(server, function(err, connection){
                             connection.query(rawQuery, function(err, rows, fields) {
-                                if(err) console.log(color.error(err));
+                                if(err) color.error(err);
                                 else {
                                     console.log(color.warn(server) + color.debug(":") +
                                                 color.help(table) + color.debug("->") +
@@ -104,9 +108,7 @@ fs.watch(conf.log_path, function (event, filename) {
             checkFolder(dir);
 
             copyFile(conf.log_path + filename, dir + "/" + file, function(err) {
-                if(err) {
-                    console.log(color.error('ERROR: ' + err));
-                }
+                if(err) exceptionFile(err);
             });
         }
 
@@ -119,5 +121,5 @@ fs.watch(conf.log_path, function (event, filename) {
 exports.init = function() {
     for (var i in conf.servers) {
         checkFolder(conf.log_path + i);
-    }
+    } runQuerys();
 };

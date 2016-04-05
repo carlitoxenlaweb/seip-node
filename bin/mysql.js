@@ -79,7 +79,13 @@ exports.getQuery = function(table, type, data){
 
 exports.getConnection = function(server, callback){
     pool[server].getConnection(function(err, connection) {
-        callback(err, connection);
+        if(err) {
+            console.log(color.warn(server) +
+                        color.debug("->") +
+                        color.error(err));
+        } else {
+            callback(err, connection);
+        }
     });
 };
 

@@ -77,17 +77,19 @@
 		]
 	},
 	"fos_user_user_rol": {
-		"primary": "user_id|rol_id",
+		"primary": "user_id|rol_id|company_id",
 		"fields": [
 			"user_id",
-			"rol_id"
+			"rol_id",
+			"company_id"
 		]
 	},
 	"seip_connection": {
-		"primary": "id",
+		"primary": "id|company_id",
 		"fields": [
 			"id",
-			"name"
+			"name",
+			"company_id"
 		]
 	},
 	"seip_user_connection": {
@@ -96,20 +98,20 @@
 			"user_id",
 			"connection_id"
 		]
-	}
+	},
 	"servers": {
 		"pequiven": {
-			"host": "127.0.0.1",
+			"host": "172.20.124.246",
 			"port": 3306,
-			"user": "root",
-			"pass": "123456",
+			"user": "carlos",
+			"pass": "12345",
 			"dbname": "seip"
 		},
 		"polinter": {
-			"host": "172.20.124.99",
+			"host": "172.20.20.62",
 			"port": 3306,
 			"user": "root",
-			"pass": "12345",
+			"pass": "123456",
 			"dbname": "seip"
 		}
 	}
