@@ -53,45 +53,47 @@ var exceptionFile = function(err) {
                 color.data("Evt: file change") : color.error(err));
 };
 
-function runQuerys(){
-    for (var server in conf.servers) {
-        var folder = conf.log_path + server + '/';
-        fs.readdirSync(folder, function(err, files){
-            for (var i in files) {
-                var filename = folder + files[i],
-                    metadata = files[i].split("-");
-                    
-                var table = metadata[0],
-                    otype = metadata[1].substr(0, metadata[1].indexOf("_"));
-
-                new converter({
-                    noheader : true,
-                    checkType: false,
-                    flatKeys : true,
-                    headers  : conf[table].fields
-                }).fromFile(filename, function(err, result){
-                    if(err) exceptionFile(err);
-                    else if (result[0] != null) {
-                        var rawQuery = database.getQuery(table, otype, result[0]);
-                        database.getConnection(server, function(err, connection){
-                            connection.query(rawQuery, function(err, rows, fields) {
-                                if(err) color.error(err);
-                                else {
-                                    console.log(color.warn(server) + color.debug(":") +
-                                                color.help(table) + color.debug("->") +
-                                                color.data(otype));
-                                    deleteFile(filename);
-                                }
-                            });
-                        });
-                    } else {
+var execQuery = function(server, table, otype, filename) {
+    new converter({
+        noheader : true,
+        checkType: false,
+        flatKeys : true,
+        headers  : conf[table].fields
+    }).fromFile(filename, function(err, result){
+        if(err) exceptionFile(err);
+        else if (result[0] != null) {
+            var rawQuery = database.getQuery(table, otype, result[0]);
+            database.getConnection(server, function(err, connection){
+                connection.query(rawQuery, function(err, rows, fields) {
+                    if(err) color.error(err);
+                    else {
+                        console.log(color.warn(server) + color.debug(":") +
+                                    color.help(table) + color.debug("->") +
+                                    color.data(otype));
                         deleteFile(filename);
                     }
                 });
-            }
-        })
-    }
-    error = false;
+            });
+        } else {
+            deleteFile(filename);
+        }
+    });
+};
+
+function runQuerys(){
+    for (var server in conf.servers) {
+        var folder = conf.log_path + server + '/',
+            files  = fs.readdirSync(folder);
+        for (var i in files) {
+            var filename = folder + files[i],
+                metadata = files[i].split("-");
+
+            var table = metadata[0],
+                otype = metadata[1].substr(0, metadata[1].indexOf("_"));
+
+            execQuery(server, table, otype, filename)
+        }
+    } error = false;
 }
 
 var error = false;
@@ -119,7 +121,8 @@ fs.watch(conf.log_path, function (event, filename) {
 });
 
 exports.init = function() {
+    runQuerys();
     for (var i in conf.servers) {
         checkFolder(conf.log_path + i);
-    } runQuerys();
+    }
 };
