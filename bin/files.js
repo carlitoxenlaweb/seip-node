@@ -121,8 +121,7 @@ fs.watch(conf.log_path, function (event, filename) {
 });
 
 exports.init = function() {
-    runQuerys();
     for (var i in conf.servers) {
         checkFolder(conf.log_path + i);
-    }
+    } runQuerys();
 };

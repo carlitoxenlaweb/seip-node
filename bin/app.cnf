@@ -57,7 +57,10 @@
 			"ext",
 			"workStudyCircle_id",
 			"default_conn",
-			"company_id"
+			"company_id",
+			"affiliated_worker",
+			"quarterToLoadOperationProduction",
+			"notify"
 		]
 	},
 	"seip_c_rol": {
@@ -99,20 +102,42 @@
 			"connection_id"
 		]
 	},
+	"seip_cei_Company": {
+		"primary": "id",
+		"fields": [
+			"rif",
+			"description",
+			"enabled",
+			"createdAt",
+			"updatedAt",
+			"deletedAt",
+			"alias",
+			"typeOfCompany",
+			"region_id",
+			"base64image"
+		]
+	},
 	"servers": {
 		"pequiven": {
-			"host": "172.20.124.246",
-			"port": 3306,
-			"user": "carlos",
-			"pass": "12345",
-			"dbname": "seip"
-		},
-		"polinter": {
-			"host": "172.20.20.62",
+			"host": "127.0.0.1",
 			"port": 3306,
 			"user": "root",
 			"pass": "123456",
-			"dbname": "seip"
+			"dbname": "seip_pequiven"
+		},
+		"polinter": {
+			"host": "127.0.0.1",
+			"port": 3306,
+			"user": "root",
+			"pass": "123456",
+			"dbname": "seip_polinter"
+		},
+		"fertinitro": {
+			"host": "127.0.0.1",
+			"port": 3306,
+			"user": "root",
+			"pass": "123456",
+			"dbname": "seip_fertinitro"
 		}
 	}
 }
